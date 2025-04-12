@@ -1,0 +1,21 @@
+{
+    "display": {
+        "icon": {
+            "id": "minecraft:end_rod"
+        },
+        "title": "The Worst Ending..?",
+        "description": "the cycle continues...",
+        "hidden": true
+    },
+    "parent": "alphamericaadv:root",
+    "criteria": {
+        "SEX": {
+            "trigger": "minecraft:bred_animals",
+            "conditions": {
+                "parent": {
+                    "type": "minecraft:llama"
+                }
+            }
+        }
+    }
+}

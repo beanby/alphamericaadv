@@ -1,0 +1,37 @@
+{
+  "display": {
+    "icon": {
+      "id": "minecraft:shield"
+    },
+    "title": "Today, Thank you",
+    "description": "Get hit with a shield in your offhand"
+  },
+  "parent": "alphamericaadv:root",
+  "criteria": {
+    "ouchies": {
+      "trigger": "minecraft:entity_hurt_player",
+      "conditions": {
+        "player": {
+          "equipment": {
+            "offhand": {
+              "items": "minecraft:shield"
+            }
+          }
+        },
+        "damage": {
+          "blocked": false,
+          "source_entity": {
+            "movement": {
+              "speed": {
+                "min": -1
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "rewards": {
+    "experience": 8
+  }
+}
