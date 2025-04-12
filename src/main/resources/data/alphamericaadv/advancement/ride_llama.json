@@ -1,0 +1,22 @@
+{
+    "display": {
+        "icon": {
+            "id": "minecraft:llama_spawn_egg"
+        },
+        "title": "The Beginning of the end",
+        "description": "Ride a llama"
+    },
+    "parent": "alphamericaadv:root",
+    "criteria": {
+        "ride": {
+            "trigger": "minecraft:player_interacted_with_entity",
+            "conditions": {
+                "item": {},
+                "entity": {
+                    "type": "minecraft:llama",
+                    "passenger": {}
+                }
+            }
+        }
+    }
+}

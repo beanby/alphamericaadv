@@ -1,0 +1,32 @@
+{
+    "display": {
+        "icon": {
+            "id": "minecraft:elytra"
+        },
+        "title": "i tripped",
+        "description": "die to fall damage",
+        "hidden": true,
+        "frame": "challenge"
+    },
+    "parent": "alphamericaadv:root",
+    "criteria": {
+        "ouchies": {
+            "trigger": "minecraft:entity_hurt_player",
+            "conditions": {
+                "player": {
+                    "nbt": "{Health:0f}"
+                },
+                "damage": {
+                    "type": {
+                        "tags": [
+                            {
+                                "id": "minecraft:is_fall",
+                                "expected": true
+                            }
+                        ]
+                    }
+                }
+            }
+        }
+    }
+}
