@@ -7,7 +7,6 @@ import com.mojang.logging.LogUtils;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
-import net.neoforged.fml.config.ModConfig;
 
 // The value here should match an entry in the META-INF/neoforge.mods.toml file
 @Mod(AlphamericaAdv.MODID)
