@@ -7,7 +7,7 @@
         "description": "the cycle continues...",
         "hidden": true
     },
-    "parent": "alphamericaadv:root",
+    "parent": "alphamericaadv:ride_llama",
     "criteria": {
         "SEX": {
             "trigger": "minecraft:bred_animals",
