@@ -1,0 +1,32 @@
+{
+    "display": {
+        "icon": {
+            "id": "minecraft:acacia_leaves"
+        },
+        "title": "UTAH",
+        "description": "a",
+        "frame": "task"
+    },
+    "parent": "alphamericaadv:root",
+    "criteria": {
+        "test": {
+            "trigger": "minecraft:location",
+            "conditions": {
+                "player": [
+                    {
+                        "condition": "alphamericaadv:in_polygon",
+                        "entity": "this",
+                        "points": [
+                            [-1,5],
+                            [18,30],
+                            [67,20],
+                            [32,45],
+                            [2,52],
+                            [-15,31]
+                        ]
+                    }
+                ]
+            }
+        }
+    }
+}
