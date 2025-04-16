@@ -7,7 +7,7 @@
         "description": "i mean this is basically cycles 3.",
         "hidden": true
     },
-    "parent": "alphamericaadv:root",
+    "parent": "alphamericaadv:ride_llama",
     "criteria": {
         "kill": {
             "trigger": "minecraft:player_killed_entity",

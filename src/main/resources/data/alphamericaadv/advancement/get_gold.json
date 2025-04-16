@@ -1,0 +1,37 @@
+{
+    "display": {
+        "icon": {
+            "id": "minecraft:gold_ingot"
+        },
+        "title": "Gold Rush!",
+        "description": "We're rich!",
+        "frame": "challenge",
+        "hidden": true
+    },
+    "parent": "alphamericaadv:root",
+    "criteria": {
+        "gold": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+                "slots": {
+                    "full": {
+                        "min": 5
+                    }
+                },
+                "items": [
+                    {
+                        "items": "minecraft:gold_ingot",
+                        "count": {
+                            "min": 64
+                        }
+                    }
+                ]
+            }
+        }
+    },
+    "rewards": {
+        "loot": [
+            "alphamericaadv:lava_bucket"
+        ]
+    }
+}
