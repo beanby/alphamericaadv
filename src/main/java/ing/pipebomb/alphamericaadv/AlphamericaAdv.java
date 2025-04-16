@@ -39,6 +39,6 @@ public class AlphamericaAdv
 
         LOOT_PREDICATE.register(modEventBus);
 
-        NeoForge.EVENT_BUS.register(this);
+        //NeoForge.EVENT_BUS.register(this);
     }
 }
