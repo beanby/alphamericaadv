@@ -1,0 +1,16 @@
+{
+    "display": {
+        "icon": {
+            "id": "minecraft:heartbreak_pottery_sherd"
+        },
+        "title": "What's a Healthcare?",
+        "description": "Lose at least 75 levels of XP by dying.",
+        "frame": "challenge"
+    },
+    "parent": "alphamericaadv:root",
+    "criteria": {
+        "none": {
+            "trigger": "minecraft:impossible"
+        }
+    }
+}

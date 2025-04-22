@@ -1,0 +1,16 @@
+{
+    "display": {
+        "icon": {
+            "id": "pointblank:m9"
+        },
+        "title": "Second Ammendment, Bitch!",
+        "description": "Kill the Wither with an assault rifle",
+        "frame": "challenge"
+    },
+    "parent": "alphamericaadv:root",
+    "criteria": {
+        "a": {
+            "trigger": "minecraft:impossible"
+        }
+    }
+}

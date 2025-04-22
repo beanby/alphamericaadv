@@ -1,0 +1,18 @@
+{
+    "required": true,
+    "minVersion": "0.8",
+    "package": "ing.pipebomb.alphamericaadv.mixin",
+    "compatibilityLevel": "JAVA_8",
+    "refmap": "alphamericaadv.refmap.json",
+    "mixins": [
+        "PlayerMixin",
+        "ServerLevelMixin",
+        "ServerPlayerMixin",
+        "ThrownPotionMixin"
+    ],
+    "client": [
+    ],
+    "injectors": {
+        "defaultRequire": 1
+    }
+}
