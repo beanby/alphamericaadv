@@ -1,0 +1,56 @@
+{
+    "display": {
+        "icon": {
+            "id": "corn_delight:corn"
+        },
+        "title": "Midwest Jamboree",
+        "description": "Plant 1000 Corn",
+        "frame": "challenge"
+    },
+    "parent": "alphamericaadv:root",
+    "criteria": {
+        "a": {
+            "trigger": "minecraft:item_used_on_block",
+            "conditions": {
+                "player": {
+                    "type_specific": {
+                        "type": "minecraft:player",
+                        "stats": [
+                            {
+                                "type": "minecraft:used",
+                                "stat": "corn_delight:corn_seeds",
+                                "value": {
+                                    "min": 1000
+                                }
+                            }
+                        ]
+                    }
+                },
+                "location": [
+                    {
+                        "condition": "minecraft:all_of",
+                        "terms": [
+                            {
+                                "condition": "minecraft:match_tool",
+                                "predicate": {
+                                    "items": "corn_delight:corn_seeds"
+                                }
+                            },
+                            {
+                                "condition": "minecraft:location_check",
+                                "predicate": {
+                                    "block": {
+                                        "blocks": [
+                                            "minecraft:farmland",
+                                            "farmersdelight:rich_soil_farmland"
+                                        ]
+                                    }
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+    }
+}
