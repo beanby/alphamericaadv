@@ -57,9 +57,7 @@ public class AlphamericaAdv
         AdvancementProgress progress = plr.getAdvancements().getOrStartProgress(adv);
         if (!progress.isDone()) {
             //Player doesn't have advancement
-            for (String criteria : progress.getRemainingCriteria()) { // grant advancement
-                plr.getAdvancements().award(adv, criteria);
-            }
+            AdvancementUtil.grantAdvancement(plr,adv);
             SHOULD_GET_LEVELS.add(plr);
         }
     }

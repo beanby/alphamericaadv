@@ -6,7 +6,8 @@
     "refmap": "alphamericaadv.refmap.json",
     "mixins": [
         "PlayerMixin",
-        "ServerLevelMixin"
+        "ServerLevelMixin",
+        "ServerPlayerMixin"
     ],
     "client": [
     ],
