@@ -1,0 +1,21 @@
+{
+    "display": {
+        "icon": {
+            "id": "minecraft:splash_potion",
+            "components": {
+                "minecraft:potion_contents": {
+                    "custom_color": 11235939
+                }
+            }
+        },
+        "title": "Boston Tea Party",
+        "description": "Throw 100 Splash potions into the ocean",
+        "frame": "challenge"
+    },
+    "parent": "alphamericaadv:root",
+    "criteria": {
+        "impossible": {
+            "trigger": "minecraft:impossible"
+        }
+    }
+}
