@@ -1,7 +1,7 @@
 {
     "display": {
         "icon": {
-            "id": "corn_delight:corn"
+            "id": "culturaldelights:corn_cob"
         },
         "title": "Midwest Jamboree",
         "description": "Plant 1000 Corn",
@@ -18,7 +18,7 @@
                         "stats": [
                             {
                                 "type": "minecraft:used",
-                                "stat": "corn_delight:corn_seeds",
+                                "stat": "culturaldelights:corn_kernels",
                                 "value": {
                                     "min": 1000
                                 }
@@ -33,7 +33,7 @@
                             {
                                 "condition": "minecraft:match_tool",
                                 "predicate": {
-                                    "items": "corn_delight:corn_seeds"
+                                    "items": "culturaldelights:corn_kernels"
                                 }
                             },
                             {

@@ -9,6 +9,9 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.RegisterCommandsEvent;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import org.slf4j.Logger;
 
@@ -48,7 +51,12 @@ public class AlphamericaAdv
         LOOT_PREDICATE.register(modEventBus);
         StatUtil.CUSTOM_STAT_REGISTER.register(modEventBus);
 
-        //NeoForge.EVENT_BUS.register(this);
+        NeoForge.EVENT_BUS.register(AlphamericaAdv.class);
+    }
+
+    @SubscribeEvent
+    public static void registerCommands(RegisterCommandsEvent event) {
+        event.getDispatcher().register(ProjectionUtil.ProjectionCommand.getCommand());
     }
 
     public static void playerDeathWithManyLevels(ServerPlayer plr) {

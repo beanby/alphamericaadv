@@ -12,6 +12,7 @@ import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
 
 public record DistanceCheck(LootContext.EntityTarget entityTarget, BlockPos position, IntRange intRange) implements LootItemCondition {
 
@@ -31,7 +32,7 @@ public record DistanceCheck(LootContext.EntityTarget entityTarget, BlockPos posi
     );
 
     @Override
-    public LootItemConditionType getType() {
+    public @NotNull LootItemConditionType getType() {
         return AlphamericaAdv.DISTANCE_TO.get();
     }
 
@@ -41,7 +42,7 @@ public record DistanceCheck(LootContext.EntityTarget entityTarget, BlockPos posi
         Entity entity = lootContext.getParamOrNull(this.entityTarget.getParam());
         if (entity == null) return false;
         double dist = entity.position().distanceTo(Vec3.atLowerCornerOf(this.position.atY((int) entity.position().y)));
-        AlphamericaAdv.LOGGER.info(String.valueOf(dist));
+        //AlphamericaAdv.LOGGER.info(String.valueOf(dist));
         return this.intRange.test(lootContext, (int) dist);
     }
 }
