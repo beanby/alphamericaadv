@@ -187,8 +187,6 @@ public class ProjectionUtil {
     }
 
     private static Component formatMCCoords(double lat, double lng, int x, int z) {
-        String latitude = formatDMS(lat, 'N', 'S');
-        String longitude = formatDMS(lng, 'E','W');
         Component clipboard = Component.literal("%.3f°N %.3f°E".formatted(lat,lng)).setStyle(
                 Style.EMPTY.withClickEvent(
                         new ClickEvent(ClickEvent.Action.OPEN_URL,"https://www.google.com/maps/place/%s,%s/".formatted(lat, lng))
@@ -198,16 +196,6 @@ public class ProjectionUtil {
                         ChatFormatting.GREEN
                 ));
         return Component.literal("(%s x,%s z) would be at about ".formatted(x,z)).append(clipboard);
-    }
-
-    private static String formatDMS(double dd, char whenPositive, char whenNegative) {
-        char signToUse = Math.signum(dd) == 1.0 ? whenPositive : whenNegative;
-        double y = Math.abs(dd);
-        int d = (int) y;
-        double z = 60*(y-d);
-        int m = (int) z;
-        double s = 60*(z-m);
-        return "%s°%s'%.3f\"%s".formatted(d,m,s,signToUse);
     }
 
     @ParametersAreNonnullByDefault
