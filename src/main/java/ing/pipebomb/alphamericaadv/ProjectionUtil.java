@@ -1,14 +1,14 @@
 package ing.pipebomb.alphamericaadv;
 
+import com.mojang.authlib.GameProfile;
 import com.mojang.brigadier.arguments.DoubleArgumentType;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.datafixers.util.Pair;
-import it.unimi.dsi.fastutil.doubles.DoubleImmutableList;
 import net.minecraft.ChatFormatting;
-import net.minecraft.commands.CommandSource;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
+import net.minecraft.commands.arguments.GameProfileArgument;
 import net.minecraft.commands.arguments.coordinates.ColumnPosArgument;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
@@ -23,7 +23,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.ParametersAreNonnullByDefault;
-import java.util.List;
+import java.util.*;
 
 public class ProjectionUtil {
 
@@ -196,6 +196,110 @@ public class ProjectionUtil {
                         ChatFormatting.GREEN
                 ));
         return Component.literal("(%s x,%s z) would be at about ".formatted(x,z)).append(clipboard);
+    }
+
+    public static LiteralArgumentBuilder<CommandSourceStack> getPlayerSpawnCommand() {
+        LiteralArgumentBuilder<CommandSourceStack> root = Commands.literal("player_spawn_location").requires(s -> s.hasPermission(4));
+        LiteralArgumentBuilder<CommandSourceStack> set  = Commands.literal("set")
+                .then(Commands.argument("player", GameProfileArgument.gameProfile())
+                        .then(Commands.argument("latitude",DoubleArgumentType.doubleArg())
+                                .then(Commands.argument("longitude",DoubleArgumentType.doubleArg())
+                                        .executes(c -> {
+                                            Collection<GameProfile> players = GameProfileArgument.getGameProfiles(c, "player");
+                                            if (players.size() > 1) {
+                                                c.getSource().sendFailure(Component.literal("Please only specify one player"));
+                                                return 0;
+                                            }
+                                            GameProfile plr = players.iterator().next();
+                                            UUID playerUUID = plr.getId();
+
+                                            double lat = DoubleArgumentType.getDouble(c, "latitude");
+                                            double lng = DoubleArgumentType.getDouble(c, "longitude");
+
+                                            Pair<Integer,Integer> mcPos = latLongToMC(c.getSource().getLevel(),lat,lng);
+                                            if (mcPos == null) {
+                                                c.getSource().sendFailure(Component.literal("Could not re-project geo-coordinates to minecraft coordinates"));
+                                                return 0;
+                                            }
+
+                                            PlayerSpawnData data = PlayerSpawnData.fromServerLevel(c.getSource().getLevel());
+
+                                            data.addPlayer(playerUUID,mcPos);
+                                            c.getSource().sendSuccess(() -> Component.literal("Added player successfully"),false);
+                                            return 1;
+                                        }))));
+        LiteralArgumentBuilder<CommandSourceStack> unset = Commands.literal("unset")
+                .then(Commands.argument("player",GameProfileArgument.gameProfile())
+                        .executes(c -> {
+                            Collection<GameProfile> players = GameProfileArgument.getGameProfiles(c, "player");
+                            if (players.size() > 1) {
+                                c.getSource().sendFailure(Component.literal("Please only specify one player"));
+                                return 0;
+                            }
+                            GameProfile plr = players.iterator().next();
+                            UUID plrUUID = plr.getId();
+
+                            PlayerSpawnData data = PlayerSpawnData.fromServerLevel(c.getSource().getLevel());
+
+                            if (!data.removePlayer(plrUUID)) {
+                                c.getSource().sendFailure(Component.literal("Player is not set"));
+                                return 0;
+                            }
+                            return 1;
+                        }));
+
+        return root
+                .then(set)
+                .then(unset);
+    }
+
+    @ParametersAreNonnullByDefault
+    public static class PlayerSpawnData extends SavedData {
+        Map<UUID,Pair<Integer, Integer>> spawns = new HashMap<>();
+
+        public static PlayerSpawnData fromServerLevel(ServerLevel lvl) {
+            return lvl.getDataStorage().computeIfAbsent(new Factory<>(PlayerSpawnData::new,PlayerSpawnData::load),"player_spawn_data");
+        }
+
+        public void addPlayer(UUID id, Pair<Integer,Integer> pos) {
+            this.spawns.put(id, pos);
+            this.setDirty();
+        }
+
+        public boolean removePlayer(UUID id) {
+            if (this.spawns.remove(id) == null) {
+                return false;
+            }
+            this.setDirty();
+            return true;
+        }
+
+        @Override
+        public @NotNull CompoundTag save(CompoundTag tag, HolderLookup.Provider registries) {
+            CompoundTag spawnsTag = new CompoundTag();
+            for (Map.Entry<UUID,Pair<Integer,Integer>> entry : this.spawns.entrySet()) {
+                CompoundTag plrData = new CompoundTag();
+                //plrData.putUUID("uuid",entry.getKey());
+                plrData.putInt("x",entry.getValue().getFirst());
+                plrData.putInt("z",entry.getValue().getFirst());
+                spawnsTag.put(entry.getKey().toString(),plrData);
+            }
+            tag.put("spawns",spawnsTag);
+            return tag;
+        }
+
+        public static PlayerSpawnData load(CompoundTag tag, HolderLookup.Provider provider) {
+            PlayerSpawnData data = new PlayerSpawnData();
+            CompoundTag spawnsTag = tag.getCompound("spawns");
+            for (String key : spawnsTag.getAllKeys()) {
+                UUID id = UUID.fromString(key);
+                CompoundTag plrData = spawnsTag.getCompound(key);
+                int x = plrData.getInt("x");
+                int z = plrData.getInt("z");
+                data.spawns.put(id,Pair.of(x,z));
+            }
+            return data;
+        }
     }
 
     @ParametersAreNonnullByDefault
