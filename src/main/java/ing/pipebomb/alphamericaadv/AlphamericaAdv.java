@@ -82,7 +82,7 @@ public class AlphamericaAdv
                 BlockPos pos = new BlockPos(pair.getFirst(),0,pair.getSecond());
                 LevelChunk chunk = lvl.getChunkAt(pos);
                 int spawnHeight = chunk.getHeight(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, pos.getX(),pos.getZ()) + 1;
-                player.setRespawnPosition(lvl.dimension(),pos.atY(spawnHeight),0,false,false);
+                player.setRespawnPosition(lvl.dimension(),pos.atY(spawnHeight),0,true,false);
                 player.teleportTo(lvl,pos.getX(),spawnHeight,pos.getZ(),0,0);
 
                 data.removePlayer(id);
