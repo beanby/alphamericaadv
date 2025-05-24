@@ -8,7 +8,8 @@
         "PlayerMixin",
         "ServerLevelMixin",
         "ServerPlayerMixin",
-        "ThrownPotionMixin"
+        "ThrownPotionMixin",
+        "ZombieMixin"
     ],
     "client": [
     ],
